@@ -1,0 +1,33 @@
+
+Bootstrap: docker
+From: ubuntu:16.04
+
+%environment
+SHELL=/bin/bash
+PATH=/opt/anaconda/bin:${PATH}
+LC_ALL=C.UTF-8
+
+%runscript
+    export PATH=/opt/anaconda/bin:${PATH}    
+
+%post
+    apt-get update
+    apt-get -y install wget git bzip2 gcc zlib1g-dev language-pack-en-base apt-transport-https make cmake unzip sudo libatlas3-base
+    
+    cd /root/ && wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+    cd /root/ && chmod 700 ./Miniconda2-latest-Linux-x86_64.sh
+    cd /root/ && bash ./Miniconda2-latest-Linux-x86_64.sh -b -p /opt/anaconda/
+
+    export PATH=/opt/anaconda/bin:${PATH}
+
+    conda config --add channels defaults
+    conda config --add channels conda-forge
+    conda config --add channels bioconda
+    conda config --add channels r
+
+    conda install -c bioconda bioconductor-dnacopy=1.56.0
+
+    conda install -c bioconda samtools picard
+    conda install -c bioconda bwa fastqc
+    conda install -c r r-doparallel r-foreach r-neuralnet r-glmnet r-data.table r-mass r-matrix r-jsonlite
+   
