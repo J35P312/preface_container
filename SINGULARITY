@@ -25,9 +25,5 @@ LC_ALL=C.UTF-8
     conda config --add channels bioconda
     conda config --add channels r
 
-    conda install -c bioconda bioconductor-dnacopy=1.56.0
-
-    conda install -c bioconda samtools picard
-    conda install -c bioconda bwa fastqc
     conda install -c r r-doparallel r-foreach r-neuralnet r-glmnet r-data.table r-mass r-matrix r-jsonlite
    
